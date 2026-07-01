@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Emotion Detector</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function runUnderlyingSystem() {
+            let textToAnalyze = document.getElementById("textToAnalyze").value;
+            let xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (xhr.readyState == 4 && xhr.status == 200) {
+                    document.getElementById("systemOutput").innerHTML = xhr.responseText;
+                }
+            };
+            xhr.open("GET", "/emotionDetector?textToAnalyze=" + encodeURIComponent(textToAnalyze), true);
+            xhr.send();
+        }
+    </script>
+</head>
+<body class="container mt-5">
+    <h1 class="text-center mb-4">Emotion Detector System</h1>
+    <div class="form-group">
+        <label for="textToAnalyze">Enter text for emotion detection:</label>
+        <textarea class="form-control" id="textToAnalyze" rows="4" placeholder="Type your text here..."></textarea>
+    </div>
+    <button class="btn btn-primary" onclick="runUnderlyingSystem()">Analyze Sentiment 🚀</button>
+    <div class="mt-4 alert alert-info" id="systemOutput"></div>
+</body>
+</html>
